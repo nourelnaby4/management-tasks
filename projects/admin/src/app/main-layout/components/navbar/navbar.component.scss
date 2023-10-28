@@ -1,0 +1,17 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+.active{
+  margin:0px 5px;
+  padding:5px 20px;
+  border: 1px solid #eee;
+  border-radius: 15px;
+}
+.active:hover{
+  background-color: navy;
+
+cursor: pointer;
+}
+

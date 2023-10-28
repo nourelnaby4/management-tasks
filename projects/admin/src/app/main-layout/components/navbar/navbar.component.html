@@ -1,0 +1,30 @@
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>MANAGEMENT TASKS</span>
+<span class="mx-3" class="tabs">
+  <button mat-flat-button color="primary">tasks</button>
+  <button mat-flat-button color="primary">users</button>
+  <button routerLink='/login' mat-flat-button color="primary">login</button>
+  <button mat-flat-button color="primary">logout</button>
+</span>
+
+
+
+    <span class="example-spacer"></span>
+    <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+
+
+  <div class="container mt-3">
+    <router-outlet></router-outlet>
+
+
+  </div>

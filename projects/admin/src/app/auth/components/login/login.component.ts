@@ -1,43 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatarialModule } from '../../../shared/matarial/matarial.module';
+import { MaterialModule } from '../../../shared/material/material.module';
+import { Router } from '@angular/router';
 import { SharedModule } from '../../../shared/shared/shared.module';
-import { FormControl, Validators, } from '@angular/forms';
- import { ErrorStateMatcher } from '@angular/material/core';
-
- import {MatIconModule} from '@angular/material/icon';
- import {MatDividerModule} from '@angular/material/divider';
+import { nav } from '../../../conts/mylinks';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { ToastrService, provideToastr } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,MatButtonModule,MatDividerModule,MatIconModule ],
+  imports: [CommonModule, MaterialModule, SharedModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [AuthService]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   hide = true;
+  loginForm!: FormGroup;
+  constructor(private auth: AuthService,
+    private router: Router,
+    private fb: FormBuilder,
+    private toastr: ToastrService,
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  ) {
 
-  matcher = new MyErrorStateMatcher();
+  }
+  ngOnInit(): void {
+    this.createForm();
+  }
 
+  createForm() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      role: ['admin']
+    });
+  }
+  submitLogin(formLogin: FormGroup) {
 
-}
+    this.auth.login(formLogin.value).subscribe({
+      next: (res) =>localStorage.setItem('token',res.token),
+      error: (err) => {alert(err)},
+      complete: () => {
 
+        this.toastr.success('login successfully', 'Toastr fun!');
+        this.router.navigate([`/${nav}`])
+      }
+    })
 
-import {
-
-  FormGroupDirective,
-  NgForm,
-} from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
+

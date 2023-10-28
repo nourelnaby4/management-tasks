@@ -14,8 +14,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
-
+import { MatNativeDateModule} from '@angular/material/core';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const modules = [
   MatAutocompleteModule,
   MatNativeDateModule,
@@ -33,6 +34,8 @@ const modules = [
   MatDatepickerModule,
   MatSortModule,
   MatTableModule,
+  MatToolbarModule,
+  MatProgressSpinnerModule
 ]
 @NgModule({
 
@@ -40,4 +43,4 @@ const modules = [
   imports: [modules],
   exports: [modules]
 })
-export class MatarialModule { }
+export class MaterialModule { }

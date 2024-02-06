@@ -11,5 +11,7 @@ export interface IFilteration{
   userId?:string;
   fromDate?:string,
   toDate?:string,
+  page?:number,
+  limit?:number
 }
 
